@@ -10,7 +10,7 @@ pipeline {
         stage('Setup') {
             steps {
                 script {
-                    def pythonPath = 'C:\\Python312'  // Update this to the path of Python 3.7 or newer
+                    def pythonPath = 'C:\\Python312\\python.exe'  // Update this to the path of Python 3.7 or newer
                     bat "${pythonPath} -m venv ${VIRTUAL_ENV}"
                     bat "${VIRTUAL_ENV}\\Scripts\\activate && ${pythonPath} -m pip install -r requirements.txt"
                 }
