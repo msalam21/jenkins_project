@@ -3,13 +3,13 @@ pipeline {
 
     environment {
         VIRTUAL_ENV = 'venv'
+        PYTHONPATH = "${env.WORKSPACE}"
     }
 
     stages {
         stage('Setup') {
             steps {
                 script {
-                    // Create a virtual environment and install requirements
                     if (!fileExists("${env.WORKSPACE}\\${VIRTUAL_ENV}")) {
                         bat "python -m venv ${VIRTUAL_ENV}"
                     }
@@ -21,7 +21,6 @@ pipeline {
         stage('Lint') {
             steps {
                 script {
-                    // Run flake8 for linting
                     bat "${VIRTUAL_ENV}\\Scripts\\activate && flake8 app.py"
                 }
             }
@@ -30,7 +29,6 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Run pytest for unit tests
                     bat "${VIRTUAL_ENV}\\Scripts\\activate && pytest"
                 }
             }
@@ -39,9 +37,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Placeholder for deployment
                     echo "Deploying application..."
-                    // Add your deployment steps here if any
                 }
             }
         }
