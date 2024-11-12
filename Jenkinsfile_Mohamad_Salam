@@ -29,7 +29,24 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    bat "${VIRTUAL_ENV}\\Scripts\\activate && pytest"
+                    bat "${VIRTUAL_ENV}\\Scripts\\activate && coverage run -m pytest"
+                }
+            }
+        }
+
+        stage('Coverage') {
+            steps {
+                script {
+                    bat "${VIRTUAL_ENV}\\Scripts\\activate && coverage report && coverage html"
+                    echo "Code coverage report generated in HTML format."
+                }
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                script {
+                    bat "${VIRTUAL_ENV}\\Scripts\\activate && bandit -r ."
                 }
             }
         }
@@ -38,6 +55,7 @@ pipeline {
             steps {
                 script {
                     echo "Deploying application..."
+                    // Add any deployment steps if required
                 }
             }
         }
