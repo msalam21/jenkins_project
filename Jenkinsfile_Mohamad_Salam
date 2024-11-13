@@ -56,26 +56,19 @@ pipeline {
             steps {
                 script {
                     echo "Starting local deployment..."
-
-                    // Step 1: Set up virtual environment (if not already set up)
                     echo "Setting up virtual environment..."
-                    sh """
-                        if [ ! -d "venv" ]; then
-                            python3 -m venv venv
-                        fi
-                        source venv/Script/activate
-                        pip install -r requirements.txt
+                    
+                    // Activate the virtual environment and run the application
+                    bat """
+                    venv\\Scripts\\activate
+                    python app.py
                     """
-
-                    // Step 2: Run the application
-                    echo "Running the application..."
-                    sh """
-                        source venv/bin/activate
-                        python app.py &
-                    """
+                    
+                    echo "Application is running locally."
                 }
             }
         }
+
 
     }
 
