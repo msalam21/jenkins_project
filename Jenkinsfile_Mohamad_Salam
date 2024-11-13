@@ -57,13 +57,7 @@ pipeline {
                 script {
                     echo "Starting local deployment..."
                     echo "Setting up virtual environment..."
-                    
-                    // Activate the virtual environment and run the application
-                    bat """
-                    venv\\Scripts\\activate
-                    python app.py
-                    """
-                    
+                    bat 'venv\\Scripts\\activate && python app.py'
                     echo "Application is running locally."
                 }
             }
